@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tác vụ Tree View -->
+    <record id="view_tac_vu_tree" model="ir.ui.view">
+        <field name="name">tac.vu.tree</field>
+        <field name="model">tac.vu</field>
+        <field name="arch" type="xml">
+            <tree string="Tác vụ" decoration-success="trang_thai=='done'" decoration-info="trang_thai=='doing'" decoration-muted="trang_thai=='todo'">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="nguoi_thuc_hien_id"/>
+                <field name="deadline"/>
+                <field name="thoi_gian_du_kien"/>
+                <field name="trong_so"/>
+                <field name="trang_thai"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Tác vụ Form View -->
+    <record id="view_tac_vu_form" model="ir.ui.view">
+        <field name="name">tac.vu.form</field>
+        <field name="model">tac.vu</field>
+        <field name="arch" type="xml">
+            <form string="Tác vụ">
+                <header>
+                    <field name="trang_thai" widget="statusbar" statusbar_visible="todo,doing,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="cong_viec_id"/>
+                            <label for="nguoi_thuc_hien_id"/>
+                            <div class="o_row">
+                                <field name="nguoi_thuc_hien_id"/>
+                                <button name="action_goi_y_nhan_su" type="object" icon="fa-magic" string="Gợi ý AI" class="btn-link" help="Gợi ý nhân sự phù hợp dựa trên KPI và tải việc"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="deadline"/>
+                            <field name="trong_so"/>
+                            <field name="thoi_gian_du_kien"/>
+                            <field name="thoi_gian_thuc_te"/>
+                            <field name="ngay_hoan_thanh"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Mô tả">
+                            <field name="mo_ta" placeholder="Mô tả chi tiết tác vụ..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tác vụ Kanban View - Jira Style -->
+    <record id="view_tac_vu_kanban" model="ir.ui.view">
+        <field name="name">tac.vu.kanban</field>
+        <field name="model">tac.vu</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="trang_thai" 
+                    class="o_kanban_small_column o_kanban_mobile"
+                    on_create="quick_create"
+                    quick_create_view="du_an.view_tac_vu_quick_create"
+                    group_create="false"
+                    group_delete="false"
+                    group_edit="false"
+                    archivable="false"
+                    records_draggable="true">
+                <field name="name"/>
+                <field name="nguoi_thuc_hien_id"/>
+                <field name="deadline"/>
+                <field name="trang_thai"/>
+                <field name="du_an_id"/>
+                <field name="cong_viec_id"/>
+                <progressbar field="trang_thai" colors='{"todo": "secondary", "doing": "warning", "done": "success"}'/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click o_kanban_record d-flex flex-column #{record.trang_thai.raw_value == 'done' ? 'bg-light' : ''}">
+                            <!-- Card Header with Status Badge -->
+                            <div class="o_kanban_record_top mb-2">
+                                <div class="o_kanban_record_headings flex-grow-1">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                                <div class="o_dropdown_kanban dropdown">
+                                    <a role="button" class="dropdown-toggle o-no-caret btn" data-bs-toggle="dropdown" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                        <span class="fa fa-ellipsis-v"/>
+                                    </a>
+                                    <div class="dropdown-menu" role="menu">
+                                        <a role="menuitem" type="set_cover" class="dropdown-item" data-field="trang_thai">Đổi trạng thái</a>
+                                        <div class="dropdown-divider"/>
+                                        <a t-if="widget.editable" role="menuitem" type="edit" class="dropdown-item">Sửa</a>
+                                        <a t-if="widget.deletable" role="menuitem" type="delete" class="dropdown-item">Xóa</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Project & Task Reference -->
+                            <div class="o_kanban_record_body flex-grow-1">
+                                <div t-if="record.du_an_id.value" class="text-muted small mb-1">
+                                    <i class="fa fa-folder-o"/> <field name="du_an_id"/>
+                                </div>
+                                <div t-if="record.cong_viec_id.value" class="text-muted small">
+                                    <i class="fa fa-tasks"/> <field name="cong_viec_id"/>
+                                </div>
+                            </div>
+                            
+                            <!-- Card Footer with Assignee and Due Date -->
+                            <div class="o_kanban_record_bottom mt-2 pt-2 border-top">
+                                <div class="oe_kanban_bottom_left">
+                                    <t t-if="record.deadline.raw_value">
+                                        <span t-attf-class="badge #{record.deadline.raw_value &lt; (new Date()).toISOString().split('T')[0] and record.trang_thai.raw_value != 'done' ? 'bg-danger' : 'bg-secondary'}">
+                                            <i class="fa fa-calendar" title="Hạn hoàn thành"/> <field name="deadline"/>
+                                        </span>
+                                    </t>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="nguoi_thuc_hien_id"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Quick Create Form for Kanban -->
+    <record id="view_tac_vu_quick_create" model="ir.ui.view">
+        <field name="name">tac.vu.quick.create</field>
+        <field name="model">tac.vu</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name" placeholder="Nhập tên tác vụ..."/>
+                    <field name="cong_viec_id" placeholder="Chọn công việc cha"/>
+                    <field name="nguoi_thuc_hien_id" placeholder="Giao cho..."/>
+                    <field name="deadline"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for Tác vụ -->
+    <record id="action_tac_vu" model="ir.actions.act_window">
+        <field name="name">Tác vụ</field>
+        <field name="res_model">tac.vu</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Tạo tác vụ đầu tiên
+            </p>
+            <p>
+                Chia nhỏ công việc thành các tác vụ để theo dõi chi tiết hơn.
+            </p>
+        </field>
+    </record>
+</odoo>

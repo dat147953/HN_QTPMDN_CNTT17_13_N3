@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Mốc dự án Tree View -->
+    <record id="view_moc_du_an_tree" model="ir.ui.view">
+        <field name="name">moc.du.an.tree</field>
+        <field name="model">moc.du.an</field>
+        <field name="arch" type="xml">
+            <tree string="Mốc dự án" decoration-success="trang_thai=='achieved'" decoration-danger="trang_thai=='delayed'" decoration-info="trang_thai=='pending'">
+                <field name="name"/>
+                <field name="du_an_id"/>
+                <field name="ngay_du_kien"/>
+                <field name="ngay_hoan_thanh"/>
+                <field name="phan_tram_hoan_thanh" widget="progressbar"/>
+                <field name="trang_thai"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Mốc dự án Form View -->
+    <record id="view_moc_du_an_form" model="ir.ui.view">
+        <field name="name">moc.du.an.form</field>
+        <field name="model">moc.du.an</field>
+        <field name="arch" type="xml">
+            <form string="Mốc dự án">
+                <header>
+                    <button name="action_mark_achieved" type="object" string="Đánh dấu đã đạt" class="btn-primary" attrs="{'invisible': [('trang_thai', '=', 'achieved')]}"/>
+                    <field name="trang_thai" widget="statusbar" statusbar_visible="pending,achieved"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Tên mốc dự án..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="du_an_id"/>
+                            <field name="ngay_du_kien"/>
+                            <field name="ngay_hoan_thanh"/>
+                        </group>
+                        <group>
+                            <field name="so_cong_viec"/>
+                            <field name="so_cong_viec_hoan_thanh"/>
+                            <field name="phan_tram_hoan_thanh" widget="progressbar"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Mô tả">
+                            <field name="mo_ta" placeholder="Mô tả chi tiết mốc dự án..."/>
+                        </page>
+                        <page string="Công việc liên quan">
+                            <field name="cong_viec_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="thanh_vien_ids" widget="many2many_tags"/>
+                                    <field name="deadline"/>
+                                    <field name="phan_tram_hoan_thanh" widget="progressbar"/>
+                                    <field name="trang_thai"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Mốc dự án Kanban View -->
+    <record id="view_moc_du_an_kanban" model="ir.ui.view">
+        <field name="name">moc.du.an.kanban</field>
+        <field name="model">moc.du.an</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="du_an_id"/>
+                <field name="ngay_du_kien"/>
+                <field name="trang_thai"/>
+                <field name="phan_tram_hoan_thanh"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="row mb4">
+                                <div class="col-12">
+                                    <strong><field name="name"/></strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 text-muted">
+                                    <i class="fa fa-calendar"/> <field name="ngay_du_kien"/>
+                                </div>
+                                <div class="col-6">
+                                    <field name="trang_thai" widget="badge" decoration-success="trang_thai == 'achieved'" decoration-danger="trang_thai == 'delayed'" decoration-info="trang_thai == 'pending'"/>
+                                </div>
+                            </div>
+                            <div class="row mt8">
+                                <div class="col-12">
+                                    <field name="phan_tram_hoan_thanh" widget="progressbar"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Action for Mốc dự án -->
+    <record id="action_moc_du_an" model="ir.actions.act_window">
+        <field name="name">Mốc dự án</field>
+        <field name="res_model">moc.du.an</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Tạo mốc dự án đầu tiên
+            </p>
+            <p>
+                Mốc dự án giúp bạn theo dõi những cột mốc quan trọng trong dự án.
+            </p>
+        </field>
+    </record>
+</odoo>
