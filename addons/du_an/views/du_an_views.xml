@@ -11,7 +11,7 @@
                 <field name="tong_chi_phi"/>
                 <field name="trang_thai"/>
                 <field name="cong_viec_ids"/>
-                <field name="phan_tram_hoan_thanh"/>
+                <field name="phan_tram_hoan_thanh" widget="progressbar"/>
             </tree>
         </field>
     </record>
@@ -21,6 +21,9 @@
         <field name="model">du.an</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="action_du_bao_rui_ro" type="object" string="Dự báo Rủi ro" class="btn-warning" icon="fa-bolt"/>
+                </header>
                 <sheet>
                     <group>
                         <group>
@@ -30,7 +33,11 @@
                             <field name="mo_ta"/>
                             <field name="tong_chi_phi"/>
                             <field name="trang_thai"/>
-                            <field name="phan_tram_hoan_thanh"/>
+                            <field name="phan_tram_hoan_thanh" widget="progressbar"/>
+                        </group>
+                        <group string="Phân tích AI">
+                            <field name="muc_do_rui_ro" widget="badge" decoration-success="muc_do_rui_ro == 'thap'" decoration-warning="muc_do_rui_ro == 'trung_binh'" decoration-danger="muc_do_rui_ro == 'cao'"/>
+                            <field name="phan_tich_rui_ro"/>
                         </group>
                     </group>
                     <group>
@@ -40,12 +47,25 @@
                                     <tree editable="bottom">
                                         <field name="name"/>
                                         <field name="mo_ta"/>
+                                        <field name="moc_id"/>
                                         <field name="uu_tien"/>
                                         <field name="trang_thai"/>
-                                        <field name="phan_tram_hoan_thanh"/>
+                                        <field name="trong_so"/>
+                                        <field name="phan_tram_hoan_thanh" widget="progressbar"/>
                                         <field name="thoi_gian_du_kien"/>
                                         <field name="deadline"/>
                                     </tree>   
+                                </field>
+                            </page>
+                            <page string="Mốc dự án">
+                                <field name="moc_du_an_ids">
+                                    <tree editable="bottom" decoration-success="trang_thai=='achieved'" decoration-danger="trang_thai=='delayed'">
+                                        <field name="name"/>
+                                        <field name="ngay_du_kien"/>
+                                        <field name="ngay_hoan_thanh"/>
+                                        <field name="phan_tram_hoan_thanh" widget="progressbar"/>
+                                        <field name="trang_thai"/>
+                                    </tree>
                                 </field>
                             </page>
                             <page string="Danh sách nhân sự">

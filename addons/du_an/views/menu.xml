@@ -21,6 +21,20 @@
             action="action_cong_viec_list"
         />
         <menuitem
+            id="menu_tac_vu"
+            name="Tác Vụ"
+            parent="menu_root"
+            sequence="3"
+            action="action_tac_vu"
+        />
+        <menuitem
+            id="menu_moc_du_an"
+            name="Mốc Dự Án"
+            parent="menu_root"
+            sequence="4"
+            action="action_moc_du_an"
+        />
+        <menuitem
             id="menu_chi_phi"
             name="Chi Phí"
             parent="menu_root"
@@ -34,8 +48,15 @@
             sequence="6"
             action="action_project_risk"
         />
+        <menuitem
+            id="menu_hieu_suat"
+            name="Dashboard Hiệu Suất"
+            parent="menu_root"
+            sequence="8"
+            action="action_hieu_suat_nhan_vien"
+        />
         
-        <menuitem id="menu_du_an_report" name="Báo cáo Dự Án" parent="menu_root" sequence="7"/>
+        <menuitem id="menu_du_an_report" name="Báo cáo Dự Án" parent="menu_root" sequence="9"/>
         <menuitem id="menu_chart_status" name="Phân bố trạng thái dự án" parent="menu_du_an_report" action="action_du_an_status_chart"/>
         <menuitem id="menu_chart_progress" name="Tiến độ hoàn thành các dự án" parent="menu_du_an_report" action="action_du_an_progress_chart"/>
         <menuitem id="menu_chart_cong_viec" name="Phân bố công việc" parent="menu_du_an_report" action="action_cong_viec_status_chart"/>

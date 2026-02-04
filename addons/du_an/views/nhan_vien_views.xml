@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_nhan_vien_form_inherit_du_an" model="ir.ui.view">
+        <field name="name">nhan_vien.form.inherit.du_an</field>
+        <field name="model">nhan_vien</field>
+        <field name="inherit_id" ref="nhan_su.view_nhan_vien_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page string="Công Việc &amp; Tác Vụ">
+                        <group>
+                            <group>
+                                <field name="user_id"/>
+                            </group>
+                        </group>
+                        <group string="Thống kê hiệu suất">
+                            <group>
+                                <field name="tong_tac_vu"/>
+                                <field name="tac_vu_hoan_thanh"/>
+                                <field name="ty_le_hoan_thanh" widget="progressbar"/>
+                            </group>
+                            <group>
+                                <field name="tac_vu_dung_han"/>
+                                <field name="ty_le_dung_deadline" widget="progressbar"/>
+                            </group>
+                        </group>
+                        
+                        <separator string="Tác vụ được giao"/>
+                        <field name="tac_vu_ids">
+                            <tree decoration-success="trang_thai == 'done'" decoration-warning="trang_thai == 'doing'" decoration-info="trang_thai == 'todo'">
+                                <field name="name"/>
+                                <field name="du_an_id"/>
+                                <field name="deadline"/>
+                                <field name="trang_thai" widget="badge" decoration-success="trang_thai == 'done'" decoration-warning="trang_thai == 'doing'" decoration-info="trang_thai == 'todo'"/>
+                                <field name="thoi_gian_du_kien" sum="Tổng dự kiến"/>
+                                <field name="thoi_gian_thuc_te" sum="Tổng thực tế"/>
+                                <field name="ngay_hoan_thanh"/>
+                            </tree>
+                        </field>
+
+                        <separator string="Công việc tham gia"/>
+                        <field name="cong_viec_ids"/>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>
