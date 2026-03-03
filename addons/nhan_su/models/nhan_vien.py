@@ -5,6 +5,9 @@ class NhanVien(models.Model):
     _name = 'nhan_vien'
     _description = 'Bảng chứa thông tin nhân viên'
     _rec_name = 'ho_va_ten'
+    _sql_constraints = [
+        ('ma_dinh_danh_unique', 'UNIQUE(ma_dinh_danh)', 'Mã định danh đã tồn tại trong hệ thống!')
+    ]
 
     ma_dinh_danh = fields.Char("Mã định danh", required=True)
     nam_sinh = fields.Date("Năm sinh")
@@ -16,9 +19,15 @@ class NhanVien(models.Model):
     ho_va_ten = fields.Char("Họ và tên", compute='_compute_ho_va_ten', store=True)
     tuoi = fields.Integer("Tuổi", compute="_compute_tuoi", store=True)
 
-    lich_su_cong_tac_ids = fields.One2many("lich_su_cong_tac", "nhan_vien_id", string="Danh sách lịch sử công tác")
     phong_ban_id = fields.Many2one("phong_ban", string="Phòng ban")
-    cong_viec_ids = fields.Many2many('cong.viec', string='Công việc tham gia')  # Kết nối với công việc
+    chuc_vu_id = fields.Many2one("chuc_vu", string="Chức vụ")
+    vai_tro = fields.Selection([
+        ('nhan_vien', 'Nhân viên'),
+        ('pho_phong', 'Phó phòng'),
+        ('truong_phong', 'Trưởng phòng'),
+        ('giam_doc', 'Giám đốc')
+    ], default='nhan_vien', string='Vai trò')
+    cap_tren_id = fields.Many2one('nhan_vien', string='Quản lý trực tiếp')
 
     @api.depends("ho_ten_dem", "ten")
     def _compute_ho_va_ten(self):

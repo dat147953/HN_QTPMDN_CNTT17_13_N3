@@ -25,11 +25,13 @@
             sequence="3"
             action="action_chuc_vu"
         />
-        <menuitem name="Lịch sử công tác"
-            id="menu_lich_su_cong_tac" 
+
+        <menuitem name="Lịch Phòng ban" 
+            id="menu_su_kien" 
             parent="menu_root" 
-            sequence="4"
-            action="action_lich_su_cong_tac"
+            sequence="5"
+            action="action_su_kien"
         />
+
     </data>
 </odoo>
