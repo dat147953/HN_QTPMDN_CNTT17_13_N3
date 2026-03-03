@@ -51,3 +51,4 @@ package.json
 /src/
 /venv/
 /venv_15_04/
+.env

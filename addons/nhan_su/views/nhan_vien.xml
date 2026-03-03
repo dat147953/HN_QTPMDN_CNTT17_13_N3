@@ -19,6 +19,10 @@
                             <field name="que_quan"/>
                             <field name="email"/>
                             <field name="so_dien_thoai"/>
+                            <field name="phong_ban_id"/>
+                            <field name="chuc_vu_id"/>
+                            <field name="vai_tro"/>
+                            <field name="cap_tren_id"/>
                         </group>
                     </sheet>
                 </form>
@@ -38,6 +42,8 @@
                     <field name="que_quan"/>
                     <field name="email"/>
                     <field name="so_dien_thoai"/>
+                    <field name="phong_ban_id"/>
+                    <field name="vai_tro"/>
                 </tree>
             </field>
         </record>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Sự kiện Calendar View -->
+        <record id="view_su_kien_calendar" model="ir.ui.view">
+            <field name="name">su_kien.calendar</field>
+            <field name="model">su_kien</field>
+            <field name="arch" type="xml">
+                <calendar string="Lịch Phòng ban" 
+                          date_start="ngay_bat_dau" 
+                          date_stop="ngay_ket_thuc" 
+                          color="color"
+                          mode="month"
+                          quick_add="False"
+                          event_open_popup="true">
+                    <field name="name"/>
+                    <field name="loai"/>
+                    <field name="phong_ban_id"/>
+                </calendar>
+            </field>
+        </record>
+
+        <!-- Sự kiện Form View -->
+        <record id="view_su_kien_form" model="ir.ui.view">
+            <field name="name">su_kien.form</field>
+            <field name="model">su_kien</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" placeholder="Tên sự kiện..."/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Thông tin">
+                                <field name="loai"/>
+                                <field name="phong_ban_id"/>
+                                <field name="nguoi_tao_id"/>
+                            </group>
+                            <group string="Thời gian">
+                                <field name="ngay_bat_dau"/>
+                                <field name="ngay_ket_thuc"/>
+                                <field name="ca_ngay"/>
+                            </group>
+                        </group>
+                        <group string="Mô tả">
+                            <field name="mo_ta" nolabel="1"/>
+                        </group>
+                        <group string="Thành viên tham gia">
+                            <field name="thanh_vien_ids" widget="many2many_tags" nolabel="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Sự kiện Tree View -->
+        <record id="view_su_kien_tree" model="ir.ui.view">
+            <field name="name">su_kien.tree</field>
+            <field name="model">su_kien</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="loai"/>
+                    <field name="phong_ban_id"/>
+                    <field name="ngay_bat_dau"/>
+                    <field name="ngay_ket_thuc"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Search View -->
+        <record id="view_su_kien_search" model="ir.ui.view">
+            <field name="name">su_kien.search</field>
+            <field name="model">su_kien</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="phong_ban_id"/>
+                    <filter string="Họp" name="filter_hop" domain="[('loai', '=', 'hop')]"/>
+                    <filter string="Nghỉ" name="filter_nghi" domain="[('loai', '=', 'nghi')]"/>
+                    <filter string="Deadline" name="filter_deadline" domain="[('loai', '=', 'deadline')]"/>
+                    <group expand="0" string="Nhóm theo">
+                        <filter string="Phòng ban" name="group_dept" context="{'group_by': 'phong_ban_id'}"/>
+                        <filter string="Loại" name="group_type" context="{'group_by': 'loai'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_su_kien" model="ir.actions.act_window">
+            <field name="name">Lịch Phòng ban</field>
+            <field name="res_model">su_kien</field>
+            <field name="view_mode">calendar,tree,form</field>
+            <field name="search_view_id" ref="view_su_kien_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Tạo sự kiện đầu tiên
+                </p>
+                <p>
+                    Lịch họp, ngày nghỉ, deadline dự án...
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
