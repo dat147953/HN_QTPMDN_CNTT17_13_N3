@@ -2,7 +2,7 @@
 
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white) ![GitLab](https://img.shields.io/badge/gitlab-%23181717.svg?style=for-the-badge&logo=gitlab&logoColor=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) ![Python](https://img.shields.io/badge/python-v3.8+-blue.svg) [![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 
-#  HỆ THỐNG QUẢN LÝ DỰ ÁN
+#  HỆ THỐNG QUẢN LÝ DỰ ÁN & QUẢN LÝ CÔNG VIỆC
 
 **Giải pháp quản lý dự án chuyên nghiệp, toàn diện và hiệu quả**
 
@@ -12,7 +12,7 @@
 
 ## Tổng Quan Hệ Thống
 
-Hệ thống Quản lý Dự án cung cấp giải pháp toàn diện để quản lý dự án, nhân sự, tài nguyên, chi phí và rủi ro. Với giao diện trực quan và các công cụ phân tích mạnh mẽ, hệ thống giúp tổ chức tối ưu hóa quy trình làm việc và đạt được hiệu suất cao nhất.
+Hệ thống Quản lý Dự án & Quản lý công việc cung cấp giải pháp toàn diện để quản lý dự án, nhân sự, tài nguyên, chi phí và rủi ro. Với giao diện trực quan và các công cụ phân tích mạnh mẽ, hệ thống giúp tổ chức tối ưu hóa quy trình làm việc và đạt được hiệu suất cao nhất.
 
 ---
 
@@ -32,7 +32,7 @@ Xem thông tin chi tiết về từng dự án bao gồm: mô tả, mục tiêu,
 
 ---
 
-### **Quản lý Công việc & Tác vụ**
+### **Quản lý Công việc**
 
 #### **Danh sách Công việc**
 Quản lý tất cả các công việc trong dự án với khả năng phân loại theo trạng thái, độ ưu tiên, và người phụ trách. Hệ thống hỗ trợ theo dõi tiến độ từng công việc một cách chi tiết.
