@@ -4,7 +4,7 @@
 
 #  HỆ THỐNG QUẢN LÝ DỰ ÁN & QUẢN LÝ CÔNG VIỆC
 
-**Giải pháp quản lý dự án chuyên nghiệp, toàn diện và hiệu quả**
+**Giải pháp quản lý dự án và công việc chuyên nghiệp, toàn diện và hiệu quả**
 
 </div>
 
